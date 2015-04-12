@@ -1,0 +1,66 @@
+<!--<section data-ng-controller="CustomersController" data-ng-init="findOne()">-->
+	<!--<div class="page-header">-->
+		<!--<h1 data-ng-bind="customer.name"></h1>-->
+	<!--</div>-->
+	<!--<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == customer.user._id))">-->
+		<!--<a class="btn btn-primary" href="/#!/customers/{{customer._id}}/edit">-->
+			<!--<i class="glyphicon glyphicon-edit"></i>-->
+		<!--</a>-->
+		<!--<a class="btn btn-primary" data-ng-click="remove();">-->
+			<!--<i class="glyphicon glyphicon-trash"></i>-->
+		<!--</a>-->
+	<!--</div>-->
+	<!--<small>-->
+		<!--<em class="text-muted">-->
+			<!--Posted on-->
+			<!--<span data-ng-bind="customer.created | date:'mediumDate'"></span>-->
+			<!--by-->
+			<!--<span data-ng-bind="customer.user.displayName"></span>-->
+		<!--</em>-->
+	<!--</small>-->
+<!--</section>-->
+
+<div class="row">
+	<div class = "col-xs-12 col-sm-8">
+		<div class="input-group input-group-lg">
+			<input type="text" placeholder="Search customer..." class="form-control" ng-model="searchText">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">go!</button>
+                </span>
+		</div>
+	</div>
+
+	<div class = "col-xs-12 col-sm-4 text-center">
+		<button type="button" class="btn btn-success text-center"  ng-click = "customersCtrl.customerCreate('lg')">
+			<i class = "glyphicon glyphicon-user" ></i><br>
+			<span>Create Customer</span>
+		</button>
+	</div>
+</div>
+<br>
+<br>
+<div class="list-group">
+	<div class="col-xs-6 col-sm-4" data-ng-repeat= "customer in customersCtrl.customers | filter:searchText">
+		<a ng-click = "customersCtrl.customerUpdate('lg',customer)" class="list-group-item">
+			<h4 class="cust-list text-center">
+				<i class="glyphicon glyphicon-user" ng-class="{'text-primary':customer.referred,'text-pink':!customer.referred}"></i>
+			</h4>
+			<div class="row">
+				<div class="col-xs-10 col-xs-offset-1">
+					<h4>{{customer.firstName}} {{customer.surname}}</h4>
+					<small class="list-group-item-text">
+						<span data-ng-bind="customer.created | date:'medium'"></span>
+                            <span class="pull-right">
+                                <button class="btn btn-default btn-sm" ng-click ="customersCtrl.remove(customer)">
+									<i class="glyphicon glyphicon-trash"></i>
+								</button>
+                            </span>
+					</small>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+<div class="alert alert-warning text-center" data-ng-hide="!customers.$resolved || customers.length">
+	No Customers yet, why don't you <a href="/#!/customers/create">create one</a>?
+</div>
